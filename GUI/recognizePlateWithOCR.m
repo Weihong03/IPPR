@@ -1,4 +1,4 @@
-function plateText = recognizePlateWithOCR(plateImage)
+function [plateText, ocrFigHandle] = recognizePlateWithOCR(plateImage)
     % Preprocess the plate image for OCR
     if size(plateImage, 3) == 3
         grayPlate = rgb2gray(plateImage);
@@ -7,7 +7,7 @@ function plateText = recognizePlateWithOCR(plateImage)
     end
     
     % Display original grayscale for debugging
-    figure('Name', 'OCR Preprocessing');
+    ocrFigHandle = figure('Name', 'OCR Preprocessing');
     subplot(2,3,1), imshow(grayPlate), title('Original Grayscale');
     
     % Enhance contrast - using a different method to highlight edges

@@ -1,4 +1,4 @@
-function [plateRegion, bbox] = detectLicensePlate(img, vehicleType)
+function [plateRegion, bbox, detFigHandle] = detectLicensePlate(img, vehicleType)
     % Unified license plate detection function
     % Input:
     %   img - Input image
@@ -6,6 +6,10 @@ function [plateRegion, bbox] = detectLicensePlate(img, vehicleType)
     % Output:
     %   plateRegion - Cropped license plate region
     %   bbox - Bounding box coordinates [x, y, width, height]
+    
+    plateRegion = [];
+    bbox = [];
+    detFigHandle = [];
     
     % Convert to grayscale if it's a color image
     if size(img, 3) == 3
@@ -15,7 +19,7 @@ function [plateRegion, bbox] = detectLicensePlate(img, vehicleType)
     end
     
     % Debug visualization
-    figure('Name', ['License Plate Detection - ' vehicleType]);
+    detFigHandle = figure('Name', ['License Plate Detection - ' vehicleType]);
     subplot(2,4,1), imshow(grayImg), title('Original Grayscale');
     
     % Enhance contrast
