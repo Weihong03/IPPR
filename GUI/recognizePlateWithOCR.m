@@ -6,8 +6,28 @@ function [plateText, ocrFigHandle] = recognizePlateWithOCR(plateImage)
         grayPlate = plateImage;
     end
     
-    % Display original grayscale for debugging
-    ocrFigHandle = figure('Name', 'OCR Preprocessing');
+    % Configure and create figure window
+    ocrFigHandle = figure('Name', 'OCR Preprocessing', ...
+                          'Color', [0.9294 0.9412 0.9412], ... % Match app background color
+                          'Position', [100, 100, 800, 600]); % Set initial size
+    
+    % Get the current screen size
+    screenSize = get(0, 'ScreenSize');
+    screenWidth = screenSize(3);
+    screenHeight = screenSize(4);
+    
+    % Position the window on the right half of the screen, centered
+    figPosition = get(ocrFigHandle, 'Position');
+    figWidth = figPosition(3);
+    figHeight = figPosition(4);
+    
+    % Calculate position for right half center alignment
+    newLeft = screenWidth/2 + (screenWidth/2 - figWidth)/2; % Center of right half
+    newTop = (screenHeight - figHeight)/2; % Vertical center
+    
+    % Set the new position
+    set(ocrFigHandle, 'Position', [newLeft, newTop, figWidth, figHeight]);
+    
     subplot(2,3,1), imshow(grayPlate), title('Original Grayscale');
     
     % Enhance contrast - using a different method to highlight edges

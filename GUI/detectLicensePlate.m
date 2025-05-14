@@ -18,8 +18,28 @@ function [plateRegion, bbox, detFigHandle] = detectLicensePlate(img, vehicleType
         grayImg = img;
     end
     
-    % Debug visualization
-    detFigHandle = figure('Name', ['License Plate Detection - ' vehicleType]);
+    % Debug visualization with configured window
+    detFigHandle = figure('Name', ['License Plate Detection - ' vehicleType], ...
+                          'Color', [0.9294 0.9412 0.9412], ... % Match app background color
+                          'Position', [100, 100, 800, 600]); % Set initial size
+    
+    % Get the current screen size
+    screenSize = get(0, 'ScreenSize');
+    screenWidth = screenSize(3);
+    screenHeight = screenSize(4);
+    
+    % Position the window on the left half of the screen, centered
+    figPosition = get(detFigHandle, 'Position');
+    figWidth = figPosition(3);
+    figHeight = figPosition(4);
+    
+    % Calculate position for left half center alignment
+    newLeft = (screenWidth/2 - figWidth)/2; % Center of left half
+    newTop = (screenHeight - figHeight)/2; % Vertical center
+    
+    % Set the new position
+    set(detFigHandle, 'Position', [newLeft, newTop, figWidth, figHeight]);
+    
     subplot(2,4,1), imshow(grayImg), title('Original Grayscale');
     
     % Enhance contrast
