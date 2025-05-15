@@ -74,13 +74,6 @@ function [plateText, ocrFigHandle] = recognizePlateWithOCR(plateImage)
     text4 = strtrim(ocrResults4.Text);
     text5 = strtrim(ocrResults5.Text);
     
-    % Display text results
-    disp('OCR Results:');
-    disp(['Approach 1 (Sharpened): "', text1, '"']);
-    disp(['Approach 2 (Binary): "', text2, '"']);
-    disp(['Approach 3 (Clean): "', text3, '"']);
-    disp(['Approach 4 (Resized): "', text4, '"']);
-    disp(['Approach 5 (Original): "', text5, '"']);
     
     % Get the confidences
     conf1 = mean(ocrResults1.CharacterConfidences(~isnan(ocrResults1.CharacterConfidences)));
@@ -89,13 +82,6 @@ function [plateText, ocrFigHandle] = recognizePlateWithOCR(plateImage)
     conf4 = mean(ocrResults4.CharacterConfidences(~isnan(ocrResults4.CharacterConfidences)));
     conf5 = mean(ocrResults5.CharacterConfidences(~isnan(ocrResults5.CharacterConfidences)));
     
-    % Display confidences
-    disp('Confidences:');
-    disp(['Approach 1: ', num2str(conf1)]);
-    disp(['Approach 2: ', num2str(conf2)]);
-    disp(['Approach 3: ', num2str(conf3)]);
-    disp(['Approach 4: ', num2str(conf4)]);
-    disp(['Approach 5: ', num2str(conf5)]);
     
     % Choose result using confidence and additional approaches if needed
     plateText = '';
