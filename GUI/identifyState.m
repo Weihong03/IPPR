@@ -142,7 +142,7 @@ function state = identifyState(plateText)
             case 'B', state = [state, 'Selangor'];
             case 'C', state = [state, 'Pahang'];
             case 'D', state = [state, 'Kelantan'];
-            case 'E', state = [state, 'Sabah (Old HE series)']; % HE was replaced by HS
+            case 'E', state = [state, 'Sabah (Old HE series)'];
             case 'J', state = [state, 'Johor'];
             case 'K', state = [state, 'Kedah'];
             case 'L', state = [state, 'Labuan'];
@@ -151,7 +151,7 @@ function state = identifyState(plateText)
             case 'P', state = [state, 'Penang'];
             case 'Q', state = [state, 'Sarawak'];
             case 'R', state = [state, 'Perlis'];
-            case 'S', state = [state, 'Sabah (HS series)']; % HS is the current one for Sabah
+            case 'S', state = [state, 'Sabah (HS series)'];
             case 'T', state = [state, 'Terengganu'];
             case 'W', state = [state, 'Kuala Lumpur'];
             otherwise, state = [state, 'Unknown State'];
@@ -263,27 +263,24 @@ function state = identifyState(plateText)
     % 10. Standard single-letter Peninsular Malaysia prefixes & V (KL), F (Putrajaya)
     if len >= 1
         firstChar = plateText(1);
-        % This check is placed after more specific multi-character prefixes (KV, Qx, Sx, Hx, Zx)
-        % and after specific commemorative plates that might start with these letters.
-        
         switch firstChar
             case 'A', state = 'Perak';
             case 'B', state = 'Selangor';
             case 'C', state = 'Pahang';
             case 'D', state = 'Kelantan';
-            case 'F', state = 'Putrajaya (F Series)'; % F series for Putrajaya
+            case 'F', state = 'Putrajaya (F Series)';
             case 'J', state = 'Johor';
-            case 'K', state = 'Kedah'; % KV for Langkawi already handled
-            case 'L', state = 'Labuan'; % SL for old Sabah-Labuan, HL for taxi Labuan handled
-            case 'M', state = 'Malacca'; % UM for Uni Malaya handled if distinct
+            case 'K', state = 'Kedah';
+            case 'L', state = 'Labuan';
+            case 'M', state = 'Malacca';
             case 'N', state = 'Negeri Sembilan';
             case 'P', state = 'Penang';
             case 'R', state = 'Perlis';
             case 'T', state = 'Terengganu';
-            case 'V', state = 'Kuala Lumpur (V Series)'; % V series for KL
+            case 'V', state = 'Kuala Lumpur (V Series)';
             case 'W', state = 'Kuala Lumpur (W Series)';
             % Check for other special single letter series from commemorative list if they are distinct enough
-            case 'U' % U, UU, UUU series (page 15)
+            case 'U'
                 if (len > 1 && startsWith(plateText, 'UP')) || (len > 1 && startsWith(plateText, 'US')) || (len > 1 && startsWith(plateText, 'UA')) || (len > 1 && startsWith(plateText, 'UT'))
                     % These are specific 2-letter commemorative prefixes starting with U
                     if startsWith(plateText, 'UP'), state = 'Commemorative - UP Series (Unique Plates)'; end
